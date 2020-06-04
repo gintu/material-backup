@@ -5,8 +5,8 @@ const Header = props => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography color="inherit" variant="h3">
-          Excercises
+        <Typography color="inherit" variant="h4">
+          Exercises Database
         </Typography>
       </Toolbar>
     </AppBar>

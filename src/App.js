@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "./styles.css";
 import { Header, Footer } from "./components/layout";
 import Excercises from "./components/exercises/exercise";
@@ -6,6 +6,7 @@ import { muscles, exercises } from "./store";
 
 export default function App() {
   const [exerciseList, setExerciseList] = useState(exercises);
+  const [category, setCategory] = useState("");
   console.log("get exercises is running");
 
   let getExcercisesByMuscles = () => {
@@ -20,14 +21,24 @@ export default function App() {
     return Object.entries(sorted);
   };
 
-  const exercisesByMuscles = getExcercisesByMuscles();
+  const exercisesByMuscles = useMemo(() => getExcercisesByMuscles(), [
+    exerciseList
+  ]);
+
+  const selectCategory = args => {
+    console.log("this is fiored");
+    setCategory(args);
+  };
 
   return (
     <React.Fragment>
       <Header />
       <Excercises exercises={exercisesByMuscles} />
-
-      <Footer muscles={muscles} />
+      <Footer
+        muscles={muscles}
+        category={category}
+        selectCategory={selectCategory}
+      />
     </React.Fragment>
   );
 }

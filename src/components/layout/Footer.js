@@ -1,14 +1,30 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 
-const Footer = props => {
+const Footer = ({ muscles, category, selectCategory }) => {
+  console.log(muscles, category);
+  let index = !!category
+    ? muscles.findIndex(item => {
+        return item === category;
+      })
+    : 0;
+
+  const handleChange = (event, newValue) => {
+    selectCategory(muscles[newValue]);
+  };
   return (
-    <Paper elevation={0} variant="outlined">
-      <Tabs value={0} indicatorColor="primary" textColor="primary" centered>
+    <Paper>
+      <Tabs
+        value={index}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+        onChange={handleChange}
+      >
         <Tab label="All" />
-        {props.muscles.map(group => (
+        {muscles.map(group => (
           <Tab label={group} />
         ))}
       </Tabs>
