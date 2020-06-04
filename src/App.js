@@ -6,17 +6,9 @@ import { muscles, exercises } from "./store";
 
 export default function App() {
   const [exerciseList, setExerciseList] = useState(exercises);
-  let getExcercisesByMuscles = () => {
-    // let sorted = {};
-    // for (let item of exercises) {
-    //   if (Object.keys(sorted).includes(item.muscles)) {
-    //     sorted[item.muscles].push(item);
-    //   } else {
-    //     sorted[item.muscles] = [];
-    //     sorted[item.muscles].push(item);
-    //   }
-    // }
+  console.log("get exercises is running");
 
+  let getExcercisesByMuscles = () => {
     let sorted = exerciseList.reduce((all, excercise) => {
       let { muscles } = excercise;
 
@@ -27,11 +19,13 @@ export default function App() {
 
     return Object.entries(sorted);
   };
-  console.log(getExcercisesByMuscles());
+
+  const exercisesByMuscles = getExcercisesByMuscles();
+
   return (
     <React.Fragment>
       <Header />
-      <Excercises />
+      <Excercises exercises={exercisesByMuscles} />
 
       <Footer muscles={muscles} />
     </React.Fragment>
