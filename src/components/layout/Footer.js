@@ -4,15 +4,16 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 
 const Footer = ({ muscles, category, selectCategory }) => {
-  console.log(muscles, category);
   let index = !!category
     ? muscles.findIndex(item => {
         return item === category;
-      })
+      }) + 1
     : 0;
 
   const handleChange = (event, newValue) => {
-    selectCategory(muscles[newValue]);
+    let category = index === 0 ? "" : muscles[newValue - 1];
+    console.log(category, newValue, index);
+    selectCategory(category);
   };
   return (
     <Paper>

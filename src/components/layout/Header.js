@@ -1,7 +1,7 @@
 import React from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 
-const Header = props => {
+const Header = React.memo(props => {
   return (
     <AppBar position="static">
       <Toolbar>
@@ -11,6 +11,6 @@ const Header = props => {
       </Toolbar>
     </AppBar>
   );
-};
+});
 
 export default Header;

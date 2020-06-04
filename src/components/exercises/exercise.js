@@ -10,7 +10,7 @@ const styles = {
   Paper: { padding: 10, margin: "30px 10px", height: "60vh", overflowY: "auto" }
 };
 
-const Exercises = ({ exercises }) => {
+const Exercises = React.memo(({ exercises }) => {
   return (
     <Grid container>
       <Grid item xs>
@@ -45,6 +45,6 @@ const Exercises = ({ exercises }) => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default Exercises;
