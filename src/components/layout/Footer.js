@@ -11,8 +11,7 @@ const Footer = ({ muscles, category, selectCategory }) => {
     : 0;
 
   const handleChange = (event, newValue) => {
-    let category = index === 0 ? "" : muscles[newValue - 1];
-    console.log(category, newValue, index);
+    let category = newValue === 0 ? "" : muscles[newValue - 1];
     selectCategory(category);
   };
   return (

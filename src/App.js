@@ -7,7 +7,7 @@ import { muscles, exercises } from "./store";
 export default function App() {
   const [exerciseList, setExerciseList] = useState(exercises);
   const [category, setCategory] = useState("");
-  console.log(category);
+  const [chosenExercise, setChosenExercise] = useState({});
 
   let getExcercisesByMuscles = useCallback(() => {
     let sorted = exerciseList.reduce((all, excercise) => {
@@ -30,10 +30,21 @@ export default function App() {
     setCategory(args);
   };
 
+  const chooseExercise = id => {
+    let exercise = exerciseList.find(item => item.id === id);
+    console.log(exercise, id);
+    setChosenExercise(exercise);
+  };
+
   return (
     <React.Fragment>
       <Header />
-      <Excercises exercises={exercisesByMuscles} />
+      <Excercises
+        exercises={exercisesByMuscles}
+        category={category}
+        chooseExercise={chooseExercise}
+        chosenExercise={chosenExercise}
+      />
       <Footer
         muscles={muscles}
         category={category}
