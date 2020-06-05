@@ -32,7 +32,6 @@ export default function App() {
 
   const chooseExercise = id => {
     let exercise = exerciseList.find(item => item.id === id);
-    console.log(exercise, id);
     setChosenExercise(exercise);
   };
 

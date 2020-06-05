@@ -27,14 +27,18 @@ const Exercises = React.memo(
           <Paper style={styles.Paper}>
             {exercises.map(item => {
               return !category || item[0] === category ? (
-                <React.Fragment>
+                <React.Fragment key={item}>
                   <Typography style={{ textTransform: "capitalize" }}>
                     {item[0]}
                   </Typography>
                   <List component="ul">
                     {item[1].map(item => {
                       return (
-                        <ListItem button onClick={e => chooseExercise(item.id)}>
+                        <ListItem
+                          button
+                          key={item.id}
+                          onClick={e => chooseExercise(item.id)}
+                        >
                           <ListItemText>{item.title}</ListItemText>
                         </ListItem>
                       );

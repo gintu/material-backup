@@ -25,7 +25,7 @@ const Footer = ({ muscles, category, selectCategory }) => {
       >
         <Tab label="All" />
         {muscles.map(group => (
-          <Tab label={group} />
+          <Tab label={group} key={group} />
         ))}
       </Tabs>
     </Paper>
