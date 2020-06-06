@@ -9,17 +9,21 @@ export default function App() {
   const [category, setCategory] = useState("");
   const [chosenExercise, setChosenExercise] = useState({});
 
+  let initialExercise = muscles.reduce((all, category) => {
+    return { ...all, [category]: [] };
+  }, {});
+
   let getExcercisesByMuscles = useCallback(() => {
     let sorted = exerciseList.reduce((all, excercise) => {
       let { muscles } = excercise;
 
-      all[muscles] = all[muscles] ? [...all[muscles], excercise] : [excercise];
+      all[muscles] = [...all[muscles], excercise];
 
       return all;
-    }, {});
+    }, initialExercise);
 
     return Object.entries(sorted);
-  }, [exerciseList]);
+  }, [exerciseList, initialExercise]);
 
   const exercisesByMuscles = useMemo(() => getExcercisesByMuscles(), [
     getExcercisesByMuscles
@@ -35,14 +39,25 @@ export default function App() {
     setChosenExercise(exercise);
   };
 
+  const handleCreate = exercise => {
+    let temp = [...exerciseList, exercise];
+    setExerciseList(temp);
+  };
+
+  const handleDelete = id => {
+    let temp = exerciseList.filter(item => item.id !== id);
+    setExerciseList(temp);
+  };
+
   return (
     <React.Fragment>
-      <Header />
+      <Header muscles={muscles} handleCreate={handleCreate} />
       <Excercises
         exercises={exercisesByMuscles}
         category={category}
         chooseExercise={chooseExercise}
         chosenExercise={chosenExercise}
+        handleDelete={handleDelete}
       />
       <Footer
         muscles={muscles}

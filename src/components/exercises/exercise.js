@@ -5,6 +5,9 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const styles = {
   Paper: { padding: 10, margin: "30px 10px", height: "60vh", overflowY: "auto" }
@@ -19,7 +22,8 @@ const Exercises = React.memo(
       id = "",
       title = "welcome",
       description = "select something from the left bar"
-    }
+    },
+    handleDelete
   }) => {
     return (
       <Grid container>
@@ -40,6 +44,13 @@ const Exercises = React.memo(
                           onClick={e => chooseExercise(item.id)}
                         >
                           <ListItemText>{item.title}</ListItemText>
+                          <ListItemSecondaryAction
+                            onClick={() => handleDelete(item.id)}
+                          >
+                            <IconButton edge="end" aria-label="delete">
+                              <DeleteIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
                         </ListItem>
                       );
                     })}

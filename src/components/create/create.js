@@ -8,10 +8,17 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import MenuItem from "@material-ui/core/MenuItem";
-import { muscles } from "../../store";
+import { makeStyles } from "@material-ui/core/styles";
 
-export default function Create() {
+const useStyles = makeStyles({
+  textField: {
+    width: 300
+  }
+});
+
+export default function Create({ muscles, handleCreate }) {
   const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,6 +26,24 @@ export default function Create() {
 
   const handleClose = () => {
     setOpen(false);
+    setExercise({
+      title: "",
+      description: "",
+      muscles: ""
+    });
+  };
+  const handleClick = () => {
+    let temp = {
+      ...exercise,
+      id: exercise.title.toLowerCase().replace(/ /g, "-")
+    };
+    handleCreate(temp);
+    setOpen(false);
+    setExercise({
+      title: "",
+      description: "",
+      muscles: ""
+    });
   };
 
   const [exercise, setExercise] = useState({
@@ -28,10 +53,8 @@ export default function Create() {
   });
 
   const handleChange = event => {
-    console.log(event.target);
     let temp = { ...exercise, [event.target.name]: event.target.value };
     setExercise(temp);
-    console.log(temp);
   };
 
   return (
@@ -52,7 +75,9 @@ export default function Create() {
               label="Title"
               value={exercise.title}
               onChange={handleChange}
-              variant="filled"
+              fullWidth
+              margin="normal"
+              className={classes.textField}
             />
             <br />
             <TextField
@@ -60,17 +85,22 @@ export default function Create() {
               label="Description"
               value={exercise.description}
               onChange={handleChange}
-              variant="filled"
               multiline
               rowsMax={4}
+              fullWidth
+              margin="normal"
+              className={classes.textField}
             />
+            <br />
             <TextField
               name="muscles"
               select
               label="Select Muscle"
               value={exercise.muscles}
               onChange={handleChange}
-              helperText="Please select the musclegroup"
+              fullWidth
+              margin="normal"
+              className={classes.textField}
             >
               {muscles.map(option => (
                 <MenuItem key={option} value={option}>
@@ -84,7 +114,7 @@ export default function Create() {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClick} color="primary">
             Create
           </Button>
         </DialogActions>
