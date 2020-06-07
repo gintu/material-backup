@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +9,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import From from "../form";
 
 const styles = {
   Paper: { padding: 10, margin: "30px 10px", height: "60vh", overflowY: "auto" }
@@ -19,11 +20,15 @@ const Exercises = React.memo(
     exercises,
     category,
     chooseExercise,
+    chosenExercise,
     chosenExercise: {
       id = "",
       title = "welcome",
       description = "select something from the left bar"
     },
+    editMode,
+    handleEditClick,
+    handleEdit,
     handleDelete
   }) => {
     return (
@@ -45,7 +50,9 @@ const Exercises = React.memo(
                           onClick={e => chooseExercise(item.id)}>
                           <ListItemText>{item.title}</ListItemText>
                           <ListItemSecondaryAction>
-                            <IconButton edge="end">
+                            <IconButton
+                              edge="end"
+                              onClick={() => handleEditClick(item.id)}>
                               <EditIcon />
                             </IconButton>
                             <IconButton
@@ -65,8 +72,17 @@ const Exercises = React.memo(
         </Grid>
         <Grid item xs>
           <Paper style={styles.Paper}>
-            <Typography variant="h4">{title}</Typography>
-            <Typography variant="body1">{description}</Typography>
+            {editMode ? (
+              <From
+                handleManipulation={handleEdit}
+                toBeEdited={chosenExercise}
+              />
+            ) : (
+              <React.Fragment>
+                <Typography variant="h4">{title}</Typography>
+                <Typography variant="body1">{description}</Typography>
+              </React.Fragment>
+            )}
           </Paper>
         </Grid>
       </Grid>

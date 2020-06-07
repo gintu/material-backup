@@ -8,6 +8,7 @@ export default function App() {
   const [exerciseList, setExerciseList] = useState(exercises);
   const [category, setCategory] = useState("");
   const [chosenExercise, setChosenExercise] = useState({});
+  const [editMode, setEditMode] = useState(false);
 
   let initialExercise = muscles.reduce((all, category) => {
     return { ...all, [category]: [] };
@@ -49,6 +50,19 @@ export default function App() {
     setExerciseList(temp);
   };
 
+  const handleEditClick = id => {
+    setEditMode(true);
+    let exercise = exerciseList.find(item => item.id === id);
+    setChosenExercise(exercise);
+  };
+
+  const handleEdit = exercise => {
+    setEditMode(false);
+    let temp = exerciseList.filter(item => item.id !== exercise.id);
+    temp = [...temp, exercise];
+    setExerciseList(temp);
+  };
+
   return (
     <React.Fragment>
       <Header muscles={muscles} handleCreate={handleCreate} />
@@ -58,6 +72,9 @@ export default function App() {
         chooseExercise={chooseExercise}
         chosenExercise={chosenExercise}
         handleDelete={handleDelete}
+        editMode={editMode}
+        handleEditClick={handleEditClick}
+        handleEdit={handleEdit}
       />
       <Footer
         muscles={muscles}

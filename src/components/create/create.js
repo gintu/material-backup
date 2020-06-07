@@ -15,31 +15,12 @@ export default function Create({ muscles, handleCreate }) {
 
   const handleClose = () => {
     setOpen(false);
-    setExercise({
-      title: "",
-      description: "",
-      muscles: ""
-    });
-  };
-  const handleClick = () => {
-    let temp = {
-      ...exercise,
-      id: exercise.title.toLowerCase().replace(/ /g, "-")
-    };
-    handleCreate(temp);
-    setOpen(false);
-    setExercise({
-      title: "",
-      description: "",
-      muscles: ""
-    });
   };
 
-  const [exercise, setExercise] = useState({
-    title: "",
-    description: "",
-    muscles: ""
-  });
+  const newHandleCreate = item => {
+    setOpen(false);
+    handleCreate(item);
+  };
 
   return (
     <div>
@@ -52,7 +33,10 @@ export default function Create({ muscles, handleCreate }) {
         aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Create New Exercise</DialogTitle>
         <DialogContent>
-          <Form handleClick={handleClick} handleClose={handleClose} />
+          <Form
+            handleManipulation={newHandleCreate}
+            handleClose={handleClose}
+          />
         </DialogContent>
       </Dialog>
     </div>

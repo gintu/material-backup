@@ -12,12 +12,35 @@ const useStyles = makeStyles({
   }
 });
 
-const Form = ({ exercise, handleClick, handleClose }) => {
+const Form = ({ handleClose, handleManipulation, toBeEdited }) => {
   const classes = useStyles();
+
+  const startState = !!toBeEdited
+    ? { ...toBeEdited }
+    : {
+        title: "",
+        description: "",
+        muscles: ""
+      };
+
+  const [exercise, setExercise] = useState(startState);
 
   const handleChange = event => {
     let temp = { ...exercise, [event.target.name]: event.target.value };
     setExercise(temp);
+  };
+
+  const handleClick = () => {
+    let temp = {
+      ...exercise,
+      id: exercise.title.toLowerCase().replace(/ /g, "-")
+    };
+    handleManipulation(temp);
+    setExercise({
+      title: "",
+      description: "",
+      muscles: ""
+    });
   };
 
   return (
