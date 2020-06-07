@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import { muscles } from "../store";
-import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
+import { useTheme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   textField: {
     width: 300
   }
-});
+}));
 
 const Form = ({ handleClose, handleManipulation, toBeEdited }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  console.log(theme);
 
-  const startState = !!toBeEdited
-    ? { ...toBeEdited }
-    : {
-        title: "",
-        description: "",
-        muscles: ""
-      };
+  const [exercise, setExercise] = useState({
+    title: "",
+    description: "",
+    muscles: ""
+  });
 
-  const [exercise, setExercise] = useState(startState);
+  useEffect(() => {
+    setExercise({ ...toBeEdited });
+  }, [toBeEdited]);
 
   const handleChange = event => {
     let temp = { ...exercise, [event.target.name]: event.target.value };
@@ -82,14 +84,11 @@ const Form = ({ handleClose, handleManipulation, toBeEdited }) => {
           </MenuItem>
         ))}
       </TextField>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleClick} color="primary">
-          Create
-        </Button>
-      </DialogActions>
+      <br />
+
+      <Button onClick={handleClick} color="primary">
+        {exercise ? "Edit" : "Create"}
+      </Button>
     </form>
   );
 };

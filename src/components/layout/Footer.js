@@ -20,9 +20,9 @@ const Footer = ({ muscles, category, selectCategory }) => {
         value={index}
         indicatorColor="primary"
         textColor="primary"
-        centered
-        onChange={handleChange}
-      >
+        variant="scrollable"
+        scrollButtons="auto"
+        onChange={handleChange}>
         <Tab label="All" />
         {muscles.map(group => (
           <Tab label={group} key={group} />

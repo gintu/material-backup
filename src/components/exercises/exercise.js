@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -33,7 +33,7 @@ const Exercises = React.memo(
   }) => {
     return (
       <Grid container>
-        <Grid item xs>
+        <Grid item xs={12} sm={6}>
           <Paper style={styles.Paper}>
             {exercises.map(item => {
               return !category || item[0] === category ? (
@@ -70,7 +70,7 @@ const Exercises = React.memo(
             })}
           </Paper>
         </Grid>
-        <Grid item xs>
+        <Grid item xs={12} sm={6}>
           <Paper style={styles.Paper}>
             {editMode ? (
               <From
