@@ -87,7 +87,7 @@ const Form = ({ handleClose, handleManipulation, toBeEdited }) => {
       <br />
 
       <Button onClick={handleClick} color="primary">
-        {exercise ? "Edit" : "Create"}
+        {toBeEdited ? "Edit" : "Create"}
       </Button>
     </form>
   );
