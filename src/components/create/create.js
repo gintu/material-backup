@@ -31,7 +31,7 @@ export default function Create({ muscles, handleCreate }) {
 
   return (
     <div>
-      <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+      <Fab color="default" aria-label="add" onClick={handleClickOpen}>
         <AddIcon />
       </Fab>
       <Dialog
